@@ -68,7 +68,9 @@ vídeos gerados no Google Flow.
 │       ├── servicos/ · posvenda/ · about/
 ├── frames/{desktop,mobile}/    # sequência WebP do filme
 ├── tools/                      # geradores e scripts (dev-only)
-└── robots.txt · sitemap.xml
+├── robots.txt · sitemap.xml · llms.txt · llms-full.txt
+├── site.config.json           # URL base do site (usada pelo gerador)
+└── docs/                      # prompts do Flow e guia de publicação
 ```
 
 **Imagens:** as imagens do Flow são **ilustrativas** (ambientam serviços e
@@ -118,10 +120,32 @@ converte os stills para `assets/img/flow/` e encoda os vídeos
 
 ---
 
-## Deploy
+## Publicação
 
-Copie os arquivos estáticos (exceto `tools/`) para a hospedagem atual (FTP) ou para
-Netlify / Cloudflare Pages / qualquer host estático. Não há etapa de build.
+**No ar em:** https://diegojucah.github.io/hardsol-site/ (GitHub Pages, repo público
+[`diegojucah/hardsol-site`](https://github.com/diegojucah/hardsol-site), branch `main`).
+
+Publicar mudanças é só fazer push — o Pages reconstrói sozinho:
+
+```bash
+git add -A && git commit -m "mudança" && git push origin main
+```
+
+Quando o domínio próprio chegar:
+
+```bash
+node tools/set-site-url.js https://www.hardsol.com.br
+node tools/build-pages.js
+git add -A && git commit -m "domínio próprio" && git push origin main
+```
+
+O site é 100% estático e **não exige build** — serve em qualquer host (Netlify,
+Cloudflare Pages, Vercel, Surge ou a hospedagem atual via FTP).
+
+**Indexação e agentes de IA:** `robots.txt` (liberando buscadores e crawlers de IA),
+`sitemap.xml`, `llms.txt`, `llms-full.txt`, JSON-LD em todas as páginas e IndexNow já
+disparado. Passo a passo e o que depende da sua conta (Google Search Console, Bing
+Webmaster) em [`docs/publicacao-e-indexacao.md`](docs/publicacao-e-indexacao.md).
 
 ---
 
