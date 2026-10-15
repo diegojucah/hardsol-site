@@ -28,9 +28,10 @@
 <meta name="twitter:image" content="https://diegojucah.github.io/hardsol-site/assets/img/flow/cena-2-paineis.webp" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="assets/img/flow/hero.webp" fetchpriority="high" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/style.css" />
-<link rel="stylesheet" href="assets/css/film.css" />
+<link rel="stylesheet" href="assets/css/hero.css" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -94,13 +95,6 @@
 
 <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-<!-- ============================== PRELOADER ============================== -->
-<div class="preloader" aria-hidden="true">
-  <div class="preloader__mark">Hard<b>Sol</b></div>
-  <div class="preloader__bar"><i></i></div>
-  <div class="preloader__pct">0%</div>
-</div>
-
 <!-- ================================ HEADER ============================== -->
 <header class="site-header">
   <a class="brand" href="index.html" aria-label="HardSol Energia Solar — início">
@@ -128,46 +122,24 @@
 
 <main id="conteudo">
 
-  <!-- ========================= CINEMATIC FILM ========================== -->
-  <section class="scroll-film" style="--film-height: 700vh"
-           data-frame-count="144"
-           data-frame-ext="webp"
-           data-frames-desktop="frames/desktop"
-           data-frames-mobile="frames/mobile"
-           aria-label="Filme institucional HardSol">
-    <canvas id="film" aria-hidden="true"></canvas>
-
-    <div class="film-captions" aria-live="polite">
-      <article class="film-caption" data-from="0.00" data-to="0.55">
-        <span class="film-eyebrow">HardSol Energia Solar · Manaus/AM</span>
-        <h1>Energia que nasce com o <span class="accent">sol</span></h1>
-        <p>Projetos e instalações de energia solar fotovoltaica na Região Norte desde 2014.</p>
-      </article>
-      <article class="film-caption" data-from="0.55" data-to="1.01">
-        <span class="film-eyebrow">OnGrid · OffGrid</span>
-        <h2>Captamos a luz, geramos <span class="accent">economia</span></h2>
-        <p>Faça uma simulação gratuita e descubra a sua economia.</p>
-        <div class="film-actions">
-          <a class="btn btn--solar btn--lg" href="https://api.whatsapp.com/send?phone=5592993483553&text=Estou interessado nos serviços da HardSol" target="_blank" rel="noopener">Falar no WhatsApp</a>
-          <a class="btn btn--ghost-light btn--lg" href="servicos.html">Ver serviços</a>
-        </div>
-      </article>
+  <!-- ============================== HERO =============================== -->
+  <section class="hero">
+    <div class="hero__media">
+      <img src="assets/img/flow/hero.webp"
+           srcset="assets/img/flow/hero-mobile.webp 960w, assets/img/flow/hero.webp 1920w"
+           sizes="100vw" width="1920" height="1280"
+           alt="Painéis solares ao amanhecer" fetchpriority="high" decoding="async" />
     </div>
-
-    <div class="film-beam" aria-hidden="true"><i></i><i></i></div>
-    <div class="film-progress" aria-hidden="true"><i></i></div>
-    <div class="scroll-hint" aria-hidden="true">Role para começar</div>
-  </section>
-
-  <!-- Fallback estático (prefers-reduced-motion) -->
-  <section class="film-fallback">
-    <div class="container">
+    <div class="hero__veil" aria-hidden="true"></div>
+    <div class="hero__beam" aria-hidden="true"><i></i><i></i></div>
+    <div class="container hero__content">
       <span class="eyebrow">HardSol Energia Solar · Manaus/AM</span>
       <h1>Energia que nasce com o <span class="accent">sol</span></h1>
-      <p class="lead" style="margin-inline:auto">Projetos e instalações de energia solar fotovoltaica na Região Norte. Reduza até 95% da sua conta de energia.</p>
-      <p style="margin-top:1.5rem">
+      <p>Projetos e instalações de energia solar fotovoltaica na Região Norte desde 2014. Reduza até 95% da sua conta de energia.</p>
+      <div class="hero__actions">
         <a class="btn btn--solar btn--lg" href="https://api.whatsapp.com/send?phone=5592993483553&text=Estou interessado nos serviços da HardSol" target="_blank" rel="noopener">Solicitar orçamento</a>
-      </p>
+        <a class="btn btn--ghost-light btn--lg" href="servicos.html">Ver serviços</a>
+      </div>
     </div>
   </section>
 
@@ -430,11 +402,6 @@
   <span>WhatsApp</span>
 </a>
 
-<script src="assets/js/vendor/lenis.min.js" defer></script>
-<script src="assets/js/vendor/gsap.min.js" defer></script>
-<script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
-<script src="assets/js/loader.js" defer></script>
-<script src="assets/js/film.js" defer></script>
 <script src="assets/js/motion.js" defer></script>
 <script src="assets/js/nav.js" defer></script>
 </body>

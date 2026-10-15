@@ -7,19 +7,18 @@
   "use strict";
 
   var header = document.querySelector(".site-header");
-  var film = document.querySelector(".scroll-film");
+  var hero = document.querySelector(".hero");
 
   function updateHeader() {
     if (!header) return;
     var open = header.classList.contains("is-open");
-    var filmHeight = film ? film.offsetHeight : 0;
-    var overFilm = false;
-    if (filmHeight > 0) {
-      var end = filmHeight - window.innerHeight;
-      overFilm = window.scrollY < end - 40;
+    var heroH = hero ? hero.offsetHeight : 0;
+    var overHero = false;
+    if (heroH > 0) {
+      overHero = window.scrollY < heroH - 80;
     }
-    header.classList.toggle("is-over-film", overFilm && !open);
-    header.classList.toggle("is-solid", !overFilm || open);
+    header.classList.toggle("is-over-film", overHero && !open);
+    header.classList.toggle("is-solid", !overHero || open);
   }
 
   if (header) {

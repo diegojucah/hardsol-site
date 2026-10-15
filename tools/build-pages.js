@@ -125,23 +125,23 @@ const SERVICES = [
         <li>Esclarecimentos técnicos e consultoria</li>
       </ul>
       <p><strong>Contato pós-venda:</strong> <a href="tel:+5592992672491">(92) 99267-2491</a></p>`,
-    gallery: Array.from({ length: 9 }, (_, i) => "posvenda/" + String(i + 1).padStart(3, "0") + ".jpg"),
+    gallery: Array.from({ length: 9 }, (_, i) => "posvenda/" + String(i + 1).padStart(3, "0") + ".webp"),
   },
 ];
 
 const WORKS = [
-  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-01.jpg", tags: ["residencial"], kwp: 4.4, specs: [["Potência", "4,40 kWp"], ["Módulos", "8 × 550 W"], ["Inversor", "4 kW"], ["Economia", "R$ 680,40/mês"]] },
-  { loc: "Manaus – AM", title: "OnGrid Comercial", img: "trabalho-02.jpg", tags: ["comercial"], kwp: 60.48, specs: [["Potência", "60,48 kWp"], ["Módulos", "112 × 540 W"], ["Inversor", "20 kW"], ["Economia", "R$ 9.324,00/mês"]] },
-  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-03.jpg", tags: ["residencial"], kwp: 5.4, specs: [["Potência", "5,40 kWp"], ["Módulos", "12 × 450 W"], ["Microinversor", "1.500 W"], ["Economia", "R$ 831,60/mês"]] },
-  { loc: "Alto Paraíso – RO", title: "OnGrid Residencial", img: "trabalho-04.jpg", tags: ["residencial"], kwp: 11.39, specs: [["Potência", "11,39 kWp"], ["Módulos", "34 × BYD 335 W"], ["Inversor", "REFUsol 20.000 W"]] },
-  { loc: "São Sebastião da Boa Vista – PA", title: "OnGrid Residencial", img: "trabalho-05.jpg", tags: ["residencial"], kwp: 5.39, specs: [["Potência", "5,39 kWp"], ["Módulos", "18 × Intelbras 330 W"], ["Inversor", "Intelbras 4.600 W"]] },
-  { loc: "Cabo Frio – RJ", title: "OnGrid Residencial", img: "trabalho-06.jpg", tags: ["residencial"], kwp: 6.03, specs: [["Potência", "6,03 kWp"], ["Módulos", "18 × BYD 335 W"], ["Inversor", "REFUsol 5.000 W"]] },
-  { loc: "Maceió – AL", title: "OnGrid Predial", img: "trabalho-07.jpg", tags: ["predial"], kwp: 3.3, specs: [["Potência", "3,3 kWp"], ["Módulos", "10 × Canadian 330 W"], ["Inversor", "Canadian Solar 5.000 W"]] },
-  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-08.jpg", tags: ["residencial"], kwp: 3.25, specs: [["Potência", "3,25 kWp"], ["Módulos", "10 × Canadian 325 W"], ["Inversor", "Fronius Primo 3.000 W"]] },
-  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-09.jpg", tags: ["residencial"], kwp: 5.67, specs: [["Potência", "5,67 kWp"], ["Módulos", "21 × Jinko 270 W"], ["Inversor", "Growatt 5.500 W"]] },
-  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-10.jpg", tags: ["residencial"], kwp: 5.5, specs: [["Potência", "5,5 kWp"], ["Módulos", "17 × Jinko 340 W"], ["Inversor", "Growatt"]] },
-  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-11.jpg", tags: ["residencial"], kwp: 12.42, specs: [["Potência", "12,42 kWp"], ["Módulos", "36 × Canadian 345 W"], ["Inversor", "Fronius 12.000 W"]] },
-  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-12.jpg", tags: ["residencial"], kwp: 25, specs: [["Potência", "25 kWp"], ["Módulos", "80 × Canadian 320 W"], ["Inversor", "Fronius 25.000 W"]] },
+  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-01.webp", tags: ["residencial"], kwp: 4.4, specs: [["Potência", "4,40 kWp"], ["Módulos", "8 × 550 W"], ["Inversor", "4 kW"], ["Economia", "R$ 680,40/mês"]] },
+  { loc: "Manaus – AM", title: "OnGrid Comercial", img: "trabalho-02.webp", tags: ["comercial"], kwp: 60.48, specs: [["Potência", "60,48 kWp"], ["Módulos", "112 × 540 W"], ["Inversor", "20 kW"], ["Economia", "R$ 9.324,00/mês"]] },
+  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-03.webp", tags: ["residencial"], kwp: 5.4, specs: [["Potência", "5,40 kWp"], ["Módulos", "12 × 450 W"], ["Microinversor", "1.500 W"], ["Economia", "R$ 831,60/mês"]] },
+  { loc: "Alto Paraíso – RO", title: "OnGrid Residencial", img: "trabalho-04.webp", tags: ["residencial"], kwp: 11.39, specs: [["Potência", "11,39 kWp"], ["Módulos", "34 × BYD 335 W"], ["Inversor", "REFUsol 20.000 W"]] },
+  { loc: "São Sebastião da Boa Vista – PA", title: "OnGrid Residencial", img: "trabalho-05.webp", tags: ["residencial"], kwp: 5.39, specs: [["Potência", "5,39 kWp"], ["Módulos", "18 × Intelbras 330 W"], ["Inversor", "Intelbras 4.600 W"]] },
+  { loc: "Cabo Frio – RJ", title: "OnGrid Residencial", img: "trabalho-06.webp", tags: ["residencial"], kwp: 6.03, specs: [["Potência", "6,03 kWp"], ["Módulos", "18 × BYD 335 W"], ["Inversor", "REFUsol 5.000 W"]] },
+  { loc: "Maceió – AL", title: "OnGrid Predial", img: "trabalho-07.webp", tags: ["predial"], kwp: 3.3, specs: [["Potência", "3,3 kWp"], ["Módulos", "10 × Canadian 330 W"], ["Inversor", "Canadian Solar 5.000 W"]] },
+  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-08.webp", tags: ["residencial"], kwp: 3.25, specs: [["Potência", "3,25 kWp"], ["Módulos", "10 × Canadian 325 W"], ["Inversor", "Fronius Primo 3.000 W"]] },
+  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-09.webp", tags: ["residencial"], kwp: 5.67, specs: [["Potência", "5,67 kWp"], ["Módulos", "21 × Jinko 270 W"], ["Inversor", "Growatt 5.500 W"]] },
+  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-10.webp", tags: ["residencial"], kwp: 5.5, specs: [["Potência", "5,5 kWp"], ["Módulos", "17 × Jinko 340 W"], ["Inversor", "Growatt"]] },
+  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-11.webp", tags: ["residencial"], kwp: 12.42, specs: [["Potência", "12,42 kWp"], ["Módulos", "36 × Canadian 345 W"], ["Inversor", "Fronius 12.000 W"]] },
+  { loc: "Manaus – AM", title: "OnGrid Residencial", img: "trabalho-12.webp", tags: ["residencial"], kwp: 25, specs: [["Potência", "25 kWp"], ["Módulos", "80 × Canadian 320 W"], ["Inversor", "Fronius 25.000 W"]] },
 ];
 
 const TOTAL_KWP = Math.round(WORKS.reduce((s, w) => s + w.kwp, 0));
@@ -276,7 +276,7 @@ function head({ title, desc, canonical, base, ogImage, ogAlt }) {
 <meta name="twitter:image" content="${img}" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="${base}assets/css/style.css" />
 </head>`;
 }
@@ -394,9 +394,6 @@ ${body}
 </main>
 ${footer(base)}
 ${WHATS_FLOAT}
-<script src="${base}assets/js/vendor/lenis.min.js" defer></script>
-<script src="${base}assets/js/vendor/gsap.min.js" defer></script>
-<script src="${base}assets/js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="${base}assets/js/motion.js" defer></script>
 <script src="${base}assets/js/nav.js" defer></script>
 ${jsonld([ORG, crumbs, ...schema])}${inlineScript ? "\n" + inlineScript : ""}
