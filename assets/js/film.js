@@ -1,7 +1,9 @@
 /* ==========================================================================
-   Cinematic Scroll — motor do filme.
+   Cinematic Scroll — motor do filme + feixe de luz.
    O vídeo nunca é "tocado": o scroll escolhe o frame e desenha no <canvas>.
-   Sem suavização dupla: apenas Lenis (smooth scroll) + listener de scroll rAF.
+   Só desenha o frame exato; se ele ainda não chegou, MANTÉM o quadro atual
+   (nunca pula para um vizinho distante — era isso que fazia "surgirem várias
+   imagens" durante o scroll).
    ========================================================================== */
 (function () {
   "use strict";
@@ -17,7 +19,7 @@
   var ctx = canvas && canvas.getContext("2d", { alpha: false });
   if (!canvas || !ctx) return;
 
-  var count = parseInt(section.getAttribute("data-frame-count"), 10) || 240;
+  var count = parseInt(section.getAttribute("data-frame-count"), 10) || 144;
   var ext = section.getAttribute("data-frame-ext") || "webp";
   var dirDesktop = section.getAttribute("data-frames-desktop") || "frames/desktop";
   var dirMobile = section.getAttribute("data-frames-mobile") || "frames/mobile";
@@ -25,6 +27,7 @@
   var captions = Array.prototype.slice.call(section.querySelectorAll(".film-caption"));
   var progressBar = document.querySelector(".film-progress i");
   var hint = document.querySelector(".scroll-hint");
+  var beam = document.querySelector(".film-beam");
   var preloader = document.querySelector(".preloader");
   var preBar = preloader && preloader.querySelector(".preloader__bar i");
   var prePct = preloader && preloader.querySelector(".preloader__pct");
@@ -34,13 +37,13 @@
     count: count,
     dir: isMobile ? dirMobile : dirDesktop,
     ext: ext,
-    concurrency: isMobile ? 4 : 8,
+    concurrency: isMobile ? 5 : 8,
     onProgress: function (p) {
-      if (preBar) preBar.style.width = Math.round(p * 100) + "%";
-      if (prePct) prePct.textContent = Math.round(p * 100) + "%";
+      var pct = Math.round(p * 100);
+      if (preBar) preBar.style.width = pct + "%";
+      if (prePct) prePct.textContent = pct + "%";
     },
     onReady: function () {
-      if (preBar) preBar.style.width = "100%";
       if (preloader) preloader.classList.add("is-done");
       requestAnimationFrame(update);
     },
@@ -56,9 +59,9 @@
   }
 
   function draw(img) {
+    if (!img || !img.naturalWidth) return;
     var cw = canvas.width;
     var ch = canvas.height;
-    if (!img || !img.naturalWidth) return;
     var s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
     var w = img.naturalWidth * s;
     var h = img.naturalHeight * s;
@@ -67,6 +70,9 @@
 
   function clamp(v, a, b) {
     return v < a ? a : v > b ? b : v;
+  }
+  function smoothstep(t) {
+    return t * t * (3 - 2 * t);
   }
 
   var ticking = false;
@@ -79,21 +85,33 @@
 
     var index = Math.round(progress * (count - 1));
     if (index !== lastIndex) {
-      draw(loader.nearest(index));
-      lastIndex = index;
+      var img = loader.get(index);
+      if (img) {
+        draw(img);
+        lastIndex = index;
+      }
+      // se ainda não chegou: mantém o quadro anterior (sem "pular")
     }
 
     if (progressBar) progressBar.style.width = (progress * 100).toFixed(2) + "%";
 
+    // Feixe de luz varrendo as placas, dirigido pelo scroll.
+    if (beam) {
+      var e = smoothstep(clamp(progress / 0.85, 0, 1));
+      beam.style.setProperty("--bx", (-40 + e * 190).toFixed(2) + "%");
+      beam.style.setProperty("--bo", (0.15 + 0.85 * Math.sin(Math.PI * clamp(progress, 0, 1))).toFixed(3));
+    }
+
     var inView = rect.top < window.innerHeight && rect.bottom > 0;
-    var overlay = inView ? "" : "none";
+    var hidden = !inView;
     if (progressBar && progressBar.parentElement)
-      progressBar.parentElement.style.opacity = overlay === "none" ? "0" : "1";
+      progressBar.parentElement.style.opacity = hidden ? "0" : "1";
     var capWrap = section.querySelector(".film-captions");
-    if (capWrap) capWrap.style.visibility = overlay === "none" ? "hidden" : "visible";
+    if (capWrap) capWrap.style.visibility = hidden ? "hidden" : "visible";
+    if (beam) beam.style.visibility = hidden ? "hidden" : "visible";
     if (hint) {
-      hint.classList.toggle("is-hidden", progress > 0.03 || !inView);
-      hint.style.visibility = overlay === "none" ? "hidden" : "visible";
+      hint.classList.toggle("is-hidden", progress > 0.03 || hidden);
+      hint.style.visibility = hidden ? "hidden" : "visible";
     }
 
     for (var i = 0; i < captions.length; i++) {
@@ -119,7 +137,7 @@
   });
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  // Smooth scroll — uma só camada (Lenis). Sem lenis, scroll nativo já funciona.
+  // Smooth scroll — uma só camada (Lenis). Sem Lenis, o scroll nativo funciona.
   if (window.Lenis) {
     var lenis = new window.Lenis({ duration: 1.1, smoothWheel: true, wheelMultiplier: 1 });
     function raf(t) {
@@ -130,12 +148,15 @@
     lenis.on("scroll", onScroll);
   }
 
-  loader.start();
-
-  // poster imediato (frame 0) assim que disponível
+  // Poster imediato (frame 0) para não abrir em preto.
   var poster = new Image();
   poster.onload = function () {
-    lastIndex = -1;
+    if (lastIndex === -1) {
+      draw(poster);
+      lastIndex = 0;
+    }
   };
   poster.src = loader.src(0);
+
+  loader.start();
 })();

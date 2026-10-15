@@ -24,16 +24,16 @@ fi
 rm -rf frames/desktop frames/mobile
 mkdir -p frames/desktop frames/mobile
 
-echo "== desktop 1600x900 (grade suave assado) =="
+echo "== desktop 1280x720 (grade suave assado) =="
 "$FF" -hide_banner -loglevel error -y -i "$SRC/frame_%04d.png" \
-  -vf "scale=1600:900:flags=lanczos,eq=contrast=1.06:saturation=1.08,unsharp=5:5:0.4" \
-  -c:v libwebp -quality 80 -compression_level 6 \
+  -vf "scale=1280:720:flags=lanczos,eq=contrast=1.06:saturation=1.08,unsharp=5:5:0.4" \
+  -c:v libwebp -quality 74 -compression_level 6 \
   frames/desktop/frame_%04d.webp
 
-echo "== mobile 960x540 =="
+echo "== mobile 840x472 =="
 "$FF" -hide_banner -loglevel error -y -i "$SRC/frame_%04d.png" \
-  -vf "scale=960:540:flags=lanczos,eq=contrast=1.06:saturation=1.08" \
-  -c:v libwebp -quality 78 -compression_level 6 \
+  -vf "scale=840:472:flags=lanczos,eq=contrast=1.06:saturation=1.08" \
+  -c:v libwebp -quality 70 -compression_level 6 \
   frames/mobile/frame_%04d.webp
 
 D=$(find frames/desktop -name '*.webp' | wc -l)
