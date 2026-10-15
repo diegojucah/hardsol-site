@@ -137,16 +137,8 @@
   });
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  // Smooth scroll — uma só camada (Lenis). Sem Lenis, o scroll nativo funciona.
-  if (window.Lenis) {
-    var lenis = new window.Lenis({ duration: 1.1, smoothWheel: true, wheelMultiplier: 1 });
-    function raf(t) {
-      lenis.raf(t);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-    lenis.on("scroll", onScroll);
-  }
+  // O smooth scroll (Lenis) é criado no motion.js — uma única instância.
+  // Aqui só reagimos ao scroll (nativo ou do Lenis) via rAF.
 
   // Poster imediato (frame 0) para não abrir em preto.
   var poster = new Image();

@@ -11,23 +11,47 @@ Método: https://studio.gaven.in/blog/how-to-build-a-cinematic-scroll-website
 
 ## Identidade visual
 
-Derivada do site original da HardSol:
+Estética inspirada no [sasgp.com.br](https://sasgp.com.br/) (fundo off-white quente,
+container 1440px, gutter amplo, botões sólidos arredondados) com as **cores da HardSol**.
 
 | Uso | Cor |
 |---|---|
-| Destaque (âmbar) | `#FFBC3B` · hover `#FFAB08` · tint `#FFF7E6` |
-| Secundária (azul) | `#041581` · `#1E1E4B` · tint `#EEF0FB` |
-| Texto | `#1A1A37` · apoio `#5C5C77` / `#8585A4` |
-| Fundos | `#FFFFFF` · `#F8F8FB` · `#EDEDF3` |
-| Superfície escura (filme/rodapé) | `#0B0E1F` |
+| Destaque (âmbar) | `#FFBC3B` · hover `#FFCD6E` · tint `#FFF3D6` |
+| Secundária (azul) | `#041581` · hover `#2E36A8` · tint `#E8EAF7` |
+| Texto | `#303030` · `#535050` · apoio `#686464` |
+| Fundos | `#F9F7F7` (base) · `#F2EFEC` (alternado) · `#FFFFFF` (cards) |
+| Superfície escura (filme) | `#0B0E1F` |
 
-**Tema claro**: o site é predominantemente branco. O único momento escuro é o
-**filme** no topo da home (e o preloader que o precede).
-
-**Tipografia: Poppins** (300/400/500/600/700) — a mesma fonte do site original.
-Títulos em 600/700, corpo em 400.
+**Tipografia: Poppins** (300/400/500/600/700) — a fonte da marca.
+**Container 1440px**, gutter `clamp(1.25rem, 4vw, 4.5rem)`.
 
 Variáveis em `assets/css/style.css` (`:root`).
+
+---
+
+## Motion (scroll)
+
+- **Lenis** — smooth scroll (instância única, em `assets/js/motion.js`).
+- **GSAP + ScrollTrigger** — reveals, contadores, parallax e a **faixa horizontal
+  fixada** das Soluções (`data-hscroll`, ativa só ≥900px).
+- **Feixe de luz** — lâmina de luz varrendo as placas do filme, dirigida pelo scroll
+  (`--bx` / `--bo` em `film.css`).
+- Regra do método: **uma suavização só**. O Lenis move o scroll; o ScrollTrigger só lê
+  a posição (o `scrub` não tem suavização própria, para não somar duas).
+
+Se o GSAP não carregar, `motion.js` cai num fallback por `IntersectionObserver`.
+
+---
+
+## Estrutura da home
+
+1. **Filme** (canvas sticky + feixe de luz + 2 legendas)
+2. **Marcas** (faixa rolante)
+3. **Para quem** — residências/condomínios e empresas/indústrias
+4. **O que você precisa resolver?** — 6 necessidades numeradas, cada uma ligada ao serviço
+5. **Soluções** — faixa horizontal fixada com os 6 serviços
+6. **Nossa história** — imagens com parallax + números
+7. **Histórias de sucesso** (vídeo) e **CTA final**
 
 ---
 

@@ -251,12 +251,13 @@ function head({ title, desc, canonical, base, ogImage, ogAlt }) {
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<script>document.documentElement.classList.add("js");</script>
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(plain(desc))}" />
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow, max-image-preview:large" />
 <link rel="canonical" href="${canonical}" />
-<meta name="theme-color" content="#ffffff" />
+<meta name="theme-color" content="#f9f7f7" />
 <meta name="author" content="HardSol Energia Solar" />
 <link rel="icon" href="${base}assets/img/favicon.svg" type="image/svg+xml" />
 <!-- Open Graph -->
@@ -393,6 +394,10 @@ ${body}
 </main>
 ${footer(base)}
 ${WHATS_FLOAT}
+<script src="${base}assets/js/vendor/lenis.min.js" defer></script>
+<script src="${base}assets/js/vendor/gsap.min.js" defer></script>
+<script src="${base}assets/js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="${base}assets/js/motion.js" defer></script>
 <script src="${base}assets/js/nav.js" defer></script>
 ${jsonld([ORG, crumbs, ...schema])}${inlineScript ? "\n" + inlineScript : ""}
 </body>
