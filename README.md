@@ -11,95 +11,74 @@ Método: https://studio.gaven.in/blog/how-to-build-a-cinematic-scroll-website
 
 ## Identidade visual
 
-Estética inspirada no [sasgp.com.br](https://sasgp.com.br/) (fundo off-white quente,
-container 1440px, gutter amplo, botões sólidos arredondados) com as **cores da HardSol**.
+Derivada do site original da HardSol:
 
 | Uso | Cor |
 |---|---|
-| Destaque (âmbar) | `#FFBC3B` · hover `#FFCD6E` · tint `#FFF3D6` |
-| Secundária (azul) | `#041581` · hover `#2E36A8` · tint `#E8EAF7` |
-| Texto | `#303030` · `#535050` · apoio `#686464` |
-| Fundos | `#F9F7F7` (base) · `#F2EFEC` (alternado) · `#FFFFFF` (cards) |
-| Superfície escura (filme) | `#0B0E1F` |
+| Destaque (âmbar) | `#FFBC3B` · hover `#FFAB08` · tint `#FFF7E6` |
+| Secundária (azul) | `#041581` · `#1E1E4B` · tint `#EEF0FB` |
+| Texto | `#1A1A37` · apoio `#5C5C77` / `#8585A4` |
+| Fundos | `#FFFFFF` · `#F8F8FB` · `#EDEDF3` |
+| Superfície escura (filme/rodapé) | `#0B0E1F` |
 
-**Tipografia: Poppins** (300/400/500/600/700) — a fonte da marca.
-**Container 1440px**, gutter `clamp(1.25rem, 4vw, 4.5rem)`.
+**Tema claro**: o site é predominantemente branco. O único momento escuro é o
+**filme** no topo da home (e o preloader que o precede).
+
+**Tipografia: Poppins** (300/400/500/600/700) — a mesma fonte do site original.
+Títulos em 600/700, corpo em 400.
 
 Variáveis em `assets/css/style.css` (`:root`).
 
 ---
 
-## Hero (imagem única)
+## Como funciona o filme
 
-O topo é **uma única imagem** (`assets/img/flow/hero.webp`, 142 KB / 32 KB no mobile),
-com um **feixe de luz** que varre as placas continuamente (CSS, `hero.css`) e um véu
-para dar contraste ao texto.
+O vídeo **nunca é tocado**: a home tem uma seção alta (`.scroll-film`) com um
+`<canvas>` `position: sticky`. O progresso do scroll escolhe o frame e o desenha.
 
-**Não há sequência de frames, canvas nem transições no scroll.** A versão anterior
-desenhava 144 frames num `<canvas>` sticky (6,2 MB) e precisava de um preloader — daí a
-lentidão. Agora o caminho crítico é HTML + CSS + 1 imagem.
+- `assets/js/loader.js` — carregamento **coarse-to-fine** (16 → 8 → 4 → 2 → 1).
+- `assets/js/film.js` — scroll → frame, legendas por faixa de progresso, preloader.
+- `assets/js/nav.js` — header (claro sobre o filme / branco depois), menu, reveal,
+  contadores e **filtro do portfólio**.
+- `assets/css/film.css` — canvas sticky, legendas em overlay fixo e o fallback
+  para `prefers-reduced-motion`.
 
-> Para trocar a imagem do hero, substitua `assets/img/flow/hero.webp` (e
-> `hero-mobile.webp`). O feixe e o véu são independentes da foto.
+Estado atual: **144 frames reais** (~12s), extraídos a 12 fps dos vídeos do Google Flow.
+O **clipe 1 entra apenas como abertura curta** (últimos 3s) e se funde no clipe 2 com um
+**cross-dissolve de 1s** — sem isso, o corte entre os dois vídeos dá um "salto" de
+exposição no meio do scroll. São **2 legendas** para o movimento ler como uma tomada só.
 
----
+Para regerar o filme a partir dos clipes:
 
-## Performance
+```bash
+LEAD_IN=3 XFADE=1 FPS=12 bash tools/encode-real-film.sh
+```
 
-| | Antes (filme de frames) | Agora (hero) |
-|---|---|---|
-| Carga inicial | ~6,2 MB de frames + preloader | **310 KB, 10 requisições** |
-| Maior recurso | frame sequence | `hero.webp` 139 KB |
-| JS no caminho crítico | Lenis + GSAP + ScrollTrigger (137 KB) | **0 KB** |
+- `LEAD_IN=3` — usa só os últimos 3s do primeiro clipe (abertura).
+- `XFADE=1` — cross-dissolve de 1s na emenda.
+- `FPS=12` — frames extraídos (padrão 12; ~200–500 frames é o ideal).
 
-- **GSAP/ScrollTrigger/Lenis são carregados sob demanda** por `motion.js`
-  (`requestIdleCallback`), depois da primeira pintura — e não são baixados se o
-  visitante usa `prefers-reduced-motion`.
-- Imagens de conteúdo são **WebP** e usam `loading="lazy"`.
-- Fontes com `display=swap` e `preconnect`.
-
----
-
-## Motion (scroll)
-
-- **Lenis** — smooth scroll (instância única, em `assets/js/motion.js`).
-- **GSAP + ScrollTrigger** — reveals, contadores, parallax e a **faixa horizontal
-  fixada** das Soluções (`data-hscroll`, ativa só ≥900px).
-- **Feixe de luz** — lâmina que varre as placas, animada em CSS (`hero.css`).
-- Regra do método: **uma suavização só**. O Lenis move o scroll; o ScrollTrigger só lê
-  a posição (o `scrub` não tem suavização própria, para não somar duas).
-
-`motion.js` revela o conteúdo imediatamente com `IntersectionObserver` e só então
-injeta as bibliotecas; se elas não carregarem, os reveals continuam funcionando.
-
----
-
-## Estrutura da home
-
-1. **Hero** — imagem única + feixe de luz
-2. **Marcas** (faixa rolante)
-3. **Para quem** — residências/condomínios e empresas/indústrias
-4. **O que você precisa resolver?** — 6 necessidades numeradas, cada uma ligada ao serviço
-5. **Soluções** — faixa horizontal fixada com os 6 serviços
-6. **Nossa história** — imagens com parallax + números
-7. **Histórias de sucesso** (vídeo) e **CTA final**
+> Ao mudar o filme, atualize no `index.html`: `data-frame-count`, a altura
+> (`--film-height`) e as legendas (`.film-caption`, com `data-from` / `data-to`).
+> Regra prática: ~55vh de scroll por segundo de filme (12s → 700vh).
 
 ---
 
 ## Estrutura
 
 ```
-├── index.html                  # home
+├── index.html                  # home cinematográfica
 ├── quem-somos.html · servicos.html · trabalhos.html
 ├── sustentabilidade.html · contato.html
 ├── servicos/  (6 páginas)
 ├── assets/
-│   ├── css/{style.css, hero.css}
-│   ├── js/{motion.js, nav.js, vendor/}   # libs em vendor/ são carregadas sob demanda
+│   ├── css/{style.css, film.css}
+│   ├── js/{loader.js, film.js, nav.js, vendor/lenis.min.js}
 │   └── img/
-│       ├── flow/       # stills do Flow (hero, cenas, cards)
-│       ├── trabalhos/  # fotos reais das obras (WebP)
-│       └── posvenda/   # galeria do pós-venda (WebP)
+│       ├── flow/     # 6 stills 2K do Flow (full + card)
+│       ├── trabalhos/ # fotos reais das obras
+│       ├── servicos/ · posvenda/ · about/
+├── frames/{desktop,mobile}/    # sequência WebP do filme
 ├── tools/                      # geradores e scripts (dev-only)
 ├── robots.txt · sitemap.xml · llms.txt · llms-full.txt
 ├── site.config.json           # URL base do site (usada pelo gerador)
@@ -124,7 +103,7 @@ python3 -m http.server 8000
 ## Pipeline de mídia (dev)
 
 ```bash
-# 1) prepara os ativos do Flow (stills 2K -> WebP em assets/img/flow)
+# 1) prepara os ativos do Flow (stills 2K -> WebP; vídeos -> frames do filme)
 bash tools/prepare-flow-assets.sh
 
 # 2) regenera as páginas internas (a partir do layout compartilhado)
@@ -134,12 +113,12 @@ node tools/build-pages.js
 node tools/check-links.js
 ```
 
-`tools/prepare-flow-assets.sh` move os originais da raiz para `tools/flow-source/` e
-converte os stills do Flow para `assets/img/flow/`.
+`tools/prepare-flow-assets.sh` move os originais da raiz para `tools/flow-source/`,
+converte os stills para `assets/img/flow/` e encoda os vídeos
+(`FPS=12 bash tools/encode-real-film.sh`) em `frames/desktop` e `frames/mobile`.
 
-> Os scripts `tools/make_synthetic_film.js` e `tools/encode-real-film.sh` são um
-> **legado** do modo "filme com frames": ficaram no repositório, mas o site **não os
-> usa mais** (o topo agora é uma imagem única).
+> Regra do método: **asse o grade** (contraste/saturação/sharpen) nos arquivos WebP,
+> nunca em runtime no navegador.
 
 ---
 
@@ -184,19 +163,17 @@ Webmaster) em [`docs/publicacao-e-indexacao.md`](docs/publicacao-e-indexacao.md)
 
 ## Verificado nesta revisão
 
-- 12 páginas em HTTP 200 · **0 links internos quebrados** (385 conferidos).
-- **Carga inicial: 310 KB em 10 requisições** (antes: 6,2 MB de frames + preloader).
-  GSAP/ScrollTrigger/Lenis entram depois da primeira pintura.
-- Hero com imagem única (0 transições no scroll), feixe de luz ativo, header claro
-  sobre o hero e sólido depois.
-- Faixa horizontal das Soluções: seção fixada (`pin-spacer`) e trilho percorrendo
-  até −972 px no desktop; em telas estreitas vira scroll por toque.
+- 12 páginas em HTTP 200 · **0 links internos quebrados** (368 conferidos) ·
+  `cursos.html` retorna 404 (área removida).
+- Tema claro aplicado (fundo branco, Poppins), header claro sobre o filme e branco
+  após o filme; filme real desenhando no canvas com as legendas trocando.
 - Portfólio: filtro por tipo funciona (Todos 12 · Comercial 1 · Residencial ·
   Predial) e os números batem (148 kWp, 12 obras, 5 estados).
 
 ## Pendências
 
+- **Gerar as cenas 3–6** no Flow (hoje o filme tem só as cenas 1 e 2).
 - Substituir as fotos de baixa resolução do portfólio por fotos recentes das obras.
-- Preencher os números com os dados oficiais da HardSol.
+- Preencher "Obras em destaque" / números com os dados oficiais da HardSol.
 - (Roadmap) Área de blog e camada de preparo para agentes (llms.txt, JSON-LD mais
   rico, HTML semântico e endpoints machine-readable).
