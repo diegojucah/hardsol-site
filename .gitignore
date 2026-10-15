@@ -1,0 +1,6 @@
+tools/node_modules/
+tools/flow-source/
+tools/clips/*.mp4
+tools/clips/list.txt
+.preview/
+.commandcode/

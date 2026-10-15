@@ -1,0 +1,231 @@
+/* ==========================================================================
+   Cinematic Scroll — canvas fixo (sticky) + legendas em overlay fixo.
+   O filme é o único momento escuro da home; o resto do site é claro.
+   ========================================================================== */
+
+.scroll-film {
+  position: relative;
+  height: var(--film-height, 1000vh); /* duração do filme no scroll */
+  background: var(--night);
+}
+
+#film {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: block;
+  background: var(--night);
+}
+
+/* Véu superior p/ legibilidade do header sobre o filme */
+.scroll-film::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 22vh;
+  background: linear-gradient(180deg, rgba(7, 10, 24, 0.6), transparent);
+  z-index: 15;
+  pointer-events: none;
+}
+
+/* --------------------------- Legendas (overlay) -------------------------- */
+/* FIXAS (não dentro da seção sticky) para não tremer no scroll touch. */
+.film-captions {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: clamp(1.2rem, 5vw, 3rem);
+  pointer-events: none;
+}
+.film-caption {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% + 16px));
+  width: min(860px, 90vw);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.55);
+}
+.film-caption.is-active {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+.film-caption .film-eyebrow {
+  display: inline-block;
+  font-size: 0.74rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 0.9rem;
+}
+.film-caption h1,
+.film-caption h2 {
+  color: #fff;
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.9rem, 1.2rem + 3.6vw, 4rem);
+  font-weight: 700;
+}
+.film-caption p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.98rem, 0.94rem + 0.4vw, 1.15rem);
+  max-width: 46ch;
+  margin-inline: auto;
+}
+.film-caption .film-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.film-caption .film-actions .btn {
+  pointer-events: auto;
+}
+
+/* Barra de progresso do filme */
+.film-progress {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  z-index: 21;
+  background: rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+.film-progress i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold-600), var(--gold));
+}
+
+/* Dica de scroll */
+.scroll-hint {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(1.3rem, 4vw, 2.4rem);
+  transform: translateX(-50%);
+  z-index: 21;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: opacity 0.45s var(--ease);
+}
+.scroll-hint::after {
+  content: "";
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, var(--gold), transparent);
+  animation: hint 1.9s var(--ease) infinite;
+}
+.scroll-hint.is-hidden {
+  opacity: 0;
+}
+@keyframes hint {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+/* ------------------------------ Preloader ------------------------------- */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--night);
+  display: grid;
+  place-items: center;
+  gap: 1.3rem;
+  transition: opacity 0.6s var(--ease), visibility 0.6s;
+}
+.preloader.is-done {
+  opacity: 0;
+  visibility: hidden;
+}
+.preloader__mark {
+  font-weight: 700;
+  font-size: clamp(1.5rem, 1.2rem + 1.6vw, 2.1rem);
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.preloader__mark b {
+  color: var(--gold);
+}
+.preloader__bar {
+  width: min(220px, 60vw);
+  height: 3px;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.preloader__bar i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold-600), var(--gold));
+  transition: width 0.3s var(--ease);
+}
+.preloader__pct {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* --------------------- Fallback p/ reduced-motion ----------------------- */
+.film-fallback {
+  display: none;
+  position: relative;
+  min-height: 78vh;
+  place-content: center;
+  text-align: center;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--line);
+  padding: 8rem 1.5rem 4rem;
+}
+.film-fallback h1 {
+  font-size: clamp(2.2rem, 1.5rem + 3.4vw, 4rem);
+}
+.film-fallback .eyebrow {
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-film {
+    display: none;
+  }
+  .film-captions,
+  .film-progress,
+  .scroll-hint,
+  .preloader {
+    display: none;
+  }
+  .film-fallback {
+    display: grid;
+  }
+}

@@ -1,0 +1,38 @@
+# HardSol Energia Solar
+
+> Empresa de microgeração de energia solar fotovoltaica em Manaus/AM, fundada em 2014.
+> Projeta, instala e mantém sistemas OnGrid e OffGrid, aquecimento e bombeamento de água
+> solar e estações de carregamento de veículos elétricos. Atende o Amazonas, a Região
+> Norte e, com parceiros, todo o Brasil. Economia de até 95% na conta de energia.
+
+Dados-chave para agentes: empresa brasileira (pt-BR), área de atuação Amazonas /
+Região Norte / Brasil, desde 2014. Portfólio divulgado: 12 obras, 148 kWp instalados,
+5 estados. Contatos: WhatsApp comercial +55 92 99348-3553; pós-venda +55 92 99267-2491.
+Não há loja online; a conversão é por orçamento via WhatsApp.
+
+## Serviços
+- [Projetos e instalações fotovoltaicas](/servicos/solar-fotovoltaico.html): sistemas OnGrid (conectados à rede) e OffGrid (isolados, com baterias), projeto, homologação e instalação.
+- [Carregamento de carros elétricos](/servicos/carregamento-ev.html): eletro posto solar e garagem solar para residências, prédios, comércios e indústrias.
+- [Aquecimento de água solar](/servicos/aquecimento-solar.html): energia solar térmica convencional e a vácuo para condomínios, hotéis, restaurantes e indústrias.
+- [Bombeamento de água solar](/servicos/bombeamento-solar.html): sistemas de bombas submersas e vibratórias para irrigação e abastecimento.
+- [Elétrica residencial e predial](/servicos/eletrica.html): redes elétricas estabilizadas de baixa e alta tensão.
+- [Pós-Venda Expresso Solar](/servicos/pos-venda.html): manutenção preventiva e corretiva, limpeza de painéis, monitoramento de geração e correção de faturamento.
+- [Todos os serviços](/servicos.html): visão geral com links para cada página.
+
+## Institucional
+- [Quem somos](/quem-somos.html): história desde 2014, missão, visão, política, números e filiais/representantes (Maceió-AL, Recife-PE, Belém-PA, Porto Velho-RO, Rio de Janeiro-RJ, Macapá-AP, Boa Vista-RR).
+- [Trabalhos concluídos](/trabalhos.html): portfólio filtrável por tipo (residencial, comercial, predial) com potência, módulos, inversores e economia.
+- [Sustentabilidade](/sustentabilidade.html): práticas da sede alinhadas aos ODS 6, 7, 11 e 12 (70 painéis fotovoltaicos, captação de água da chuva, reciclagem).
+
+## Contato
+- [Página de contato](/contato.html): WhatsApp comercial, pós-venda, localização e formulário.
+- WhatsApp comercial (orçamento): https://api.whatsapp.com/send?phone=5592993483553
+- Telefone pós-venda: +55 92 99267-2491
+- Localização: Manaus — Amazonas — Brasil
+- Vídeo de depoimentos: https://www.youtube.com/watch?v=Xu_NYPAjhHU
+
+## Notas
+- Idioma: português (Brasil). Moeda: BRL.
+- Serviço B2C e B2B; atende projetos residenciais, comerciais, prediais e industriais.
+- Os números do portfólio referem-se às obras divulgadas publicamente pela empresa.
+- Imagens de cenas solares no site são ilustrativas; as fotos do portfólio são de obras reais.
