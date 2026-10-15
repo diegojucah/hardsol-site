@@ -35,8 +35,13 @@
   --gap: clamp(1.25rem, 3vw, 2.25rem);
   --radius: 16px;
   --radius-sm: 10px;
-  --shadow-sm: 0 1px 2px rgba(26, 26, 55, 0.05), 0 4px 14px -6px rgba(26, 26, 55, 0.12);
-  --shadow-md: 0 2px 4px rgba(26, 26, 55, 0.04), 0 18px 40px -18px rgba(26, 26, 55, 0.22);
+  /* Elevação padronizada: em repouso é sempre "chapado" (só borda);
+     a sombra aparece apenas no hover, suave. */
+  --e1: 0 1px 2px rgba(26, 26, 55, 0.04), 0 6px 16px -10px rgba(26, 26, 55, 0.14);
+  --e2: 0 2px 4px rgba(26, 26, 55, 0.04), 0 16px 32px -18px rgba(26, 26, 55, 0.2);
+  --e3: 0 4px 10px rgba(26, 26, 55, 0.05), 0 28px 56px -28px rgba(26, 26, 55, 0.26);
+  --lift: -3px;
+  --dur: 0.4s;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -285,7 +290,7 @@ p {
   white-space: nowrap;
 }
 .btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 .btn--solar {
   background: var(--gold);
@@ -396,12 +401,12 @@ p {
   display: flex;
   flex-direction: column;
   transition: transform 0.35s var(--ease), border-color 0.35s var(--ease),
-    box-shadow 0.35s var(--ease);
+    box-shadow var(--dur) var(--ease);
 }
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(var(--lift));
   border-color: var(--line-2);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--e2);
 }
 .card__media {
   aspect-ratio: 16 / 10;
@@ -508,11 +513,17 @@ p {
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
 .value {
-  padding: 1.6rem;
+  padding: clamp(1.4rem, 2.4vw, 1.9rem);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: #fff;
-  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+.value:hover {
+  transform: translateY(var(--lift));
+  border-color: var(--line-2);
+  box-shadow: var(--e1);
 }
 .value h3 {
   font-size: 1.1rem;
@@ -526,17 +537,21 @@ p {
 .section--blue .value {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.16);
+}
+.section--blue .value:hover {
   box-shadow: none;
+  border-color: rgba(255, 255, 255, 0.3);
 }
 .section--blue .value p {
   color: rgba(255, 255, 255, 0.72);
 }
 
 /* ------------------------------ Stats ----------------------------------- */
+/* Números: grade alinhada, número grande em cima e rótulo curto embaixo. */
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.2rem);
   padding: clamp(1.6rem, 4vw, 2.6rem);
   border-radius: var(--radius);
   background: var(--bg-2);
@@ -545,22 +560,30 @@ p {
 .section--soft .stats {
   background: #fff;
 }
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: flex-start;
+}
 .stat b {
   display: block;
-  font-size: clamp(1.9rem, 1.4rem + 2.2vw, 2.9rem);
+  font-size: clamp(1.75rem, 1.3rem + 1.5vw, 2.35rem);
   font-weight: 700;
   color: var(--blue);
-  line-height: 1;
-  letter-spacing: -0.03em;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
 }
-.stat span {
+/* Só o rótulo direto (o contador dentro de <b> herda o tamanho grande). */
+.stat > span {
   display: block;
-  margin-top: 0.5rem;
   font-size: 0.78rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted-2);
   font-weight: 500;
+  line-height: 1.35;
 }
 .section--blue .stats {
   background: rgba(255, 255, 255, 0.06);
@@ -569,8 +592,15 @@ p {
 .section--blue .stat b {
   color: var(--gold);
 }
-.section--blue .stat span {
+.section--blue .stat > span {
   color: rgba(255, 255, 255, 0.65);
+}
+
+/* CTA isolado: centralizado, nunca solto à esquerda. */
+.section-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(1.8rem, 3.5vw, 2.6rem);
 }
 
 /* --------------------------- Filtros (portfólio) ------------------------ */
@@ -789,7 +819,7 @@ p {
 }
 .feature img {
   border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--e2);
   width: 100%;
 }
 
@@ -830,7 +860,7 @@ p {
   .site-header.is-open {
     background: #fff;
     border-bottom-color: var(--line);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--e2);
   }
   .site-header.is-open .nav {
     display: flex;

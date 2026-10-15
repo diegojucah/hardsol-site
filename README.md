@@ -29,6 +29,20 @@ Títulos em 600/700, corpo em 400.
 
 Variáveis em `assets/css/style.css` (`:root`).
 
+### Padrões de UI (seguir em qualquer componente novo)
+
+| Item | Regra |
+|---|---|
+| **Elevação** | Em repouso é **chapado** (só `1px` de borda, sem sombra). A sombra aparece **apenas no hover**. |
+| **Tokens** | `--e1` (hover leve) · `--e2` (hover de card) · `--e3` (modal/sticky). Nunca escreva sombra "na mão". |
+| **Hover** | `translateY(var(--lift))` (3px) + `box-shadow` com `var(--dur)` (0.4s). **Sem exagero**: botões sobem 1px. |
+| **Números (`stat`)** | Número em `<b>` (grande) e rótulo em `<span>` **filho direto**. A unidade vai no rótulo ("kWp instalados"), nunca colada no número. |
+| **CTA isolado** | Use `class="section-cta"` — **centralizado**. CTA nunca fica solto à esquerda. |
+| **Cards com imagem** | 2 por linha: `grid grid--2` + `.card__media` + `.card__body`. |
+
+> O filme sai de cena antes de terminar (`progress` 90% → 99%): legenda, feixe e vinheta
+> desaparecem **antes** da seção seguinte, para não ficarem presos por cima dela.
+
 ---
 
 ## Como funciona o filme

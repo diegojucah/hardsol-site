@@ -105,24 +105,37 @@
 
     if (progressBar) progressBar.style.width = (progress * 100).toFixed(2) + "%";
 
+    // Saída de cena: legenda/feixe/vinheta desaparecem ANTES do filme terminar,
+    // para não ficarem "pinned" por cima da seção seguinte.
+    var tailFade = clamp((progress - 0.9) / 0.09, 0, 1);
+    var overlayOpacity = 1 - tailFade;
+    var inView = rect.top < window.innerHeight && rect.bottom > 0;
+    var hidden = !inView || overlayOpacity <= 0.01;
+
     // Feixe de luz varrendo as placas, dirigido pelo scroll.
     if (beam) {
       var e = smoothstep(clamp(progress / 0.85, 0, 1));
+      var intensity = 0.15 + 0.85 * Math.sin(Math.PI * clamp(progress, 0, 1));
       beam.style.setProperty("--bx", (-40 + e * 190).toFixed(2) + "%");
-      beam.style.setProperty("--bo", (0.15 + 0.85 * Math.sin(Math.PI * clamp(progress, 0, 1))).toFixed(3));
+      beam.style.setProperty("--bo", (intensity * overlayOpacity).toFixed(3));
     }
 
-    var inView = rect.top < window.innerHeight && rect.bottom > 0;
-    var hidden = !inView;
     if (progressBar && progressBar.parentElement)
       progressBar.parentElement.style.opacity = hidden ? "0" : "1";
     var capWrap = section.querySelector(".film-captions");
-    if (capWrap) capWrap.style.visibility = hidden ? "hidden" : "visible";
+    if (capWrap) {
+      capWrap.style.visibility = hidden ? "hidden" : "visible";
+      capWrap.style.opacity = overlayOpacity.toFixed(3);
+    }
     if (beam) beam.style.visibility = hidden ? "hidden" : "visible";
-    if (vignette) vignette.style.visibility = hidden ? "hidden" : "visible";
+    if (vignette) {
+      vignette.style.visibility = hidden ? "hidden" : "visible";
+      vignette.style.opacity = overlayOpacity.toFixed(3);
+    }
     if (hint) {
       hint.classList.toggle("is-hidden", progress > 0.03 || hidden);
       hint.style.visibility = hidden ? "hidden" : "visible";
+      hint.style.opacity = overlayOpacity.toFixed(3);
     }
 
     for (var i = 0; i < captions.length; i++) {

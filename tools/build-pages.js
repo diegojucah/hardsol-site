@@ -14,8 +14,34 @@ const path = require("path");
 const ROOT = path.join(__dirname, "..");
 const CONFIG = JSON.parse(fs.readFileSync(path.join(ROOT, "site.config.json"), "utf8"));
 const BASE = String(CONFIG.baseUrl || "https://www.hardsol.com.br").replace(/\/+$/, "");
+
+// Fonte única de contatos, redes, fontes e nomes da marca.
+const BRAND = JSON.parse(fs.readFileSync(path.join(ROOT, "brand.json"), "utf8"));
 const WHATS =
-  "https://api.whatsapp.com/send?phone=5592993483553&text=Estou interessado nos serviços da HardSol";
+  "https://api.whatsapp.com/send?phone=" +
+  BRAND.whatsapp +
+  "&text=" +
+  encodeURIComponent(BRAND.whatsappText || "Estou interessado nos serviços da HardSol");
+
+// Linhas de contato do rodapé (e-mail e Instagram só entram se preenchidos).
+function contactItems() {
+  const out = [
+    `<li><a href="https://api.whatsapp.com/send?phone=${BRAND.whatsapp}" target="_blank" rel="noopener">${BRAND.whatsappLabel}</a></li>`,
+    `<li><a href="tel:${BRAND.phone2}">${BRAND.phone2Label}${BRAND.phone2Note ? " · " + BRAND.phone2Note : ""}</a></li>`,
+  ];
+  if (BRAND.email) {
+    out.push(`<li><a href="mailto:${BRAND.email}">${BRAND.email}</a></li>`);
+  }
+  if (BRAND.instagram) {
+    out.push(
+      `<li><a href="https://instagram.com/${String(BRAND.instagram).replace(/^@/, "")}" target="_blank" rel="noopener">@${String(BRAND.instagram).replace(/^@/, "")}</a></li>`
+    );
+  }
+  if (BRAND.youtube) {
+    out.push(`<li><a href="${BRAND.youtube}" target="_blank" rel="noopener">YouTube</a></li>`);
+  }
+  return out.join("\n          ");
+}
 
 const abs = (p) => BASE + "/" + String(p).replace(/^\/+/, "");
 
@@ -275,7 +301,7 @@ function head({ title, desc, canonical, base, ogImage, ogAlt }) {
 <meta name="twitter:image" content="${img}" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="${BRAND.fontsGoogle}" rel="stylesheet" />
 <link rel="stylesheet" href="${base}assets/css/style.css" />
 </head>`;
 }
@@ -335,9 +361,7 @@ function footer(base) {
       <div>
         <h4>Contato</h4>
         <ul>
-          <li><a href="https://api.whatsapp.com/send?phone=5592993483553" target="_blank" rel="noopener">(92) 99348-3553</a></li>
-          <li><a href="tel:+5592992672491">(92) 99267-2491 · pós-venda</a></li>
-          <li><a href="https://www.youtube.com/watch?v=Xu_NYPAjhHU" target="_blank" rel="noopener">YouTube</a></li>
+          ${contactItems()}
         </ul>
       </div>
     </div>
@@ -477,7 +501,7 @@ pages["quem-somos.html"] = layout({
     ),
     section(
       `<div class="stats">
-        <div class="stat" data-reveal><b><span data-count="${TOTAL_KWP}">0</span> kWp</b><span>Instalados no portfólio</span></div>
+        <div class="stat" data-reveal><b><span data-count="${TOTAL_KWP}">0</span></b><span>kWp instalados no portfólio</span></div>
         <div class="stat" data-reveal><b><span data-count="12">0</span></b><span>Obras em destaque</span></div>
         <div class="stat" data-reveal><b><span data-count="${STATES}">0</span></b><span>Estados atendidos</span></div>
         <div class="stat" data-reveal><b><span data-count="2014">0</span></b><span>Atuando desde</span></div>
@@ -567,7 +591,7 @@ pages["trabalhos.html"] = layout({
   body: [
     section(
       `<div class="stats">
-        <div class="stat" data-reveal><b><span data-count="${TOTAL_KWP}">0</span> kWp</b><span>Potência instalada</span></div>
+        <div class="stat" data-reveal><b><span data-count="${TOTAL_KWP}">0</span></b><span>kWp instalados</span></div>
         <div class="stat" data-reveal><b><span data-count="${WORKS.length}">0</span></b><span>Obras em destaque</span></div>
         <div class="stat" data-reveal><b><span data-count="${STATES}">0</span></b><span>Estados atendidos</span></div>
         <div class="stat" data-reveal><b><span data-count="2014">0</span></b><span>Atuando desde</span></div>
@@ -590,10 +614,10 @@ pages["trabalhos.html"] = layout({
 
 // ---- Sustentabilidade
 const ODS = [
-  ["ODS 6 · Água potável e saneamento", "Reaproveitar a água da chuva e reduzir a dependência de água tratada.", "A sede possui captação de água da chuva, usada na irrigação das áreas verdes e em atividades que não exigem água tratada (banheiros e limpeza)."],
-  ["ODS 7 · Energia limpa e acessível", "Consumir a energia que nós mesmos geramos.", "São 70 painéis fotovoltaicos instalados na própria sede: energia renovável, barata e confiável, reduzindo a dependência de combustíveis fósseis."],
-  ["ODS 11 · Cidades e comunidades sustentáveis", "Construir de forma mais inteligente e responsável.", "A sede foi erguida com argamassas ACIII da SUAM, produzidas a partir da reciclagem de vidro — um exemplo do que defendemos."],
-  ["ODS 12 · Consumo e produção responsáveis", "Reduzir, reutilizar e reciclar no dia a dia.", "Separação de recicláveis, treinamentos periódicos, uso de canecas reutilizáveis, impressão frente e verso e digitalização de documentos."],
+  ["ODS 6 · Água potável e saneamento", "Reaproveitar a água da chuva e reduzir a dependência de água tratada.", "A sede possui captação de água da chuva, usada na irrigação das áreas verdes e em atividades que não exigem água tratada (banheiros e limpeza).", "flow/cena-5-agua-card.webp"],
+  ["ODS 7 · Energia limpa e acessível", "Consumir a energia que nós mesmos geramos.", "São 70 painéis fotovoltaicos instalados na própria sede: energia renovável, barata e confiável, reduzindo a dependência de combustíveis fósseis.", "flow/cena-2-paineis-card.webp"],
+  ["ODS 11 · Cidades e comunidades sustentáveis", "Construir de forma mais inteligente e responsável.", "A sede foi erguida com argamassas ACIII da SUAM, produzidas a partir da reciclagem de vidro — um exemplo do que defendemos.", "flow/cena-6-cidade-card.webp"],
+  ["ODS 12 · Consumo e produção responsáveis", "Reduzir, reutilizar e reciclar no dia a dia.", "Separação de recicláveis, treinamentos periódicos, uso de canecas reutilizáveis, impressão frente e verso e digitalização de documentos.", "flow/cena-1-amanhecer-card.webp"],
 ];
 
 pages["sustentabilidade.html"] = layout({
@@ -611,13 +635,16 @@ pages["sustentabilidade.html"] = layout({
         <div class="stat" data-reveal><b><span data-count="100" data-suffix="%">0</span></b><span>Recicláveis separados</span></div>
         <div class="stat" data-reveal><b><span data-count="2014">0</span></b><span>Compromisso desde</span></div>
       </div>
-      <p style="margin-top:1.2rem"><a class="btn btn--dark" href="contato.html">Fale com a gente</a></p>`
+      <p class="section-cta"><a class="btn btn--dark" href="contato.html">Fale com a gente</a></p>`
     ),
     section(
       `<div class="section-head"><span class="num">Objetivos Globais</span><h2>Os ODS que perseguimos</h2>
       <p class="lead">Em 2015, os líderes mundiais acordaram 17 Objetivos de Desenvolvimento Sustentável para 2030. Estamos além da metade do caminho e apenas 15% deles estão no ritmo certo — por isso agimos onde temos impacto real.</p></div>
       <div class="grid grid--2">
-        ${ODS.map(([t, sub, txt]) => `<div class="card" data-reveal><div class="card__body"><span class="card__meta">${esc(t)}</span><h3 style="font-size:1.05rem">${esc(sub)}</h3><p>${esc(txt)}</p></div></div>`).join("\n        ")}
+        ${ODS.map(
+          ([t, sub, txt, img]) =>
+            `<article class="card" data-reveal><div class="card__media"><img src="assets/img/${img}" alt="${esc(sub)}" loading="lazy" /></div><div class="card__body"><span class="card__meta">${esc(t)}</span><h3>${esc(sub)}</h3><p>${esc(txt)}</p></div></article>`
+        ).join("\n        ")}
       </div>`,
       "section section--soft"
     ),
