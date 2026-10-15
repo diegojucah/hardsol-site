@@ -47,10 +47,10 @@ v2="$(find "$SRC" -maxdepth 1 -iname "*Sunlight_reflecting*.mp4" | head -1)"
 [ -n "$v2" ] && cp -f "$v2" tools/clips/scene2.mp4 && echo "   scene2.mp4 <- $(basename "$v2")"
 
 if [ -f tools/clips/scene1.mp4 ] && [ -f tools/clips/scene2.mp4 ]; then
-  echo "== 4. encodando o filme (FPS=12) =="
-  FPS=12 bash tools/encode-real-film.sh
+  echo "== 4. encodando o filme (abertura curta + cross-dissolve, FPS=12) =="
+  LEAD_IN=3 XFADE=1 FPS=12 bash tools/encode-real-film.sh
   echo
-  echo "Agora ajuste data-frame-count no index.html com o total de frames acima."
+  echo "Ajuste data-frame-count no index.html com o total de frames acima."
 else
   echo "!! vídeos não encontrados — pulando a codificação do filme"
 fi

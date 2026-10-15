@@ -43,12 +43,24 @@ O vídeo **nunca é tocado**: a home tem uma seção alta (`.scroll-film`) com u
 - `assets/css/film.css` — canvas sticky, legendas em overlay fixo e o fallback
   para `prefers-reduced-motion`.
 
-Estado atual: **217 frames reais** (cenas 1 e 2, ~18s), extraídos a 12 fps dos
-vídeos gerados no Google Flow.
+Estado atual: **144 frames reais** (~12s), extraídos a 12 fps dos vídeos do Google Flow.
+O **clipe 1 entra apenas como abertura curta** (últimos 3s) e se funde no clipe 2 com um
+**cross-dissolve de 1s** — sem isso, o corte entre os dois vídeos dá um "salto" de
+exposição no meio do scroll. São **2 legendas** para o movimento ler como uma tomada só.
 
-> Para estender o filme: gere as cenas restantes, rode `bash tools/prepare-flow-assets.sh`
-> e atualize no `index.html` o `data-frame-count`, a altura (`--film-height`) e as
-> legendas (`.film-caption` com `data-from` / `data-to`).
+Para regerar o filme a partir dos clipes:
+
+```bash
+LEAD_IN=3 XFADE=1 FPS=12 bash tools/encode-real-film.sh
+```
+
+- `LEAD_IN=3` — usa só os últimos 3s do primeiro clipe (abertura).
+- `XFADE=1` — cross-dissolve de 1s na emenda.
+- `FPS=12` — frames extraídos (padrão 12; ~200–500 frames é o ideal).
+
+> Ao mudar o filme, atualize no `index.html`: `data-frame-count`, a altura
+> (`--film-height`) e as legendas (`.film-caption`, com `data-from` / `data-to`).
+> Regra prática: ~55vh de scroll por segundo de filme (12s → 700vh).
 
 ---
 
