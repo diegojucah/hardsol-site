@@ -43,24 +43,28 @@ O vídeo **nunca é tocado**: a home tem uma seção alta (`.scroll-film`) com u
 - `assets/css/film.css` — canvas sticky, legendas em overlay fixo e o fallback
   para `prefers-reduced-motion`.
 
-Estado atual: **144 frames reais** (~12s), extraídos a 12 fps dos vídeos do Google Flow.
-O **clipe 1 entra apenas como abertura curta** (últimos 3s) e se funde no clipe 2 com um
-**cross-dissolve de 1s** — sem isso, o corte entre os dois vídeos dá um "salto" de
-exposição no meio do scroll. São **2 legendas** para o movimento ler como uma tomada só.
+Estado atual: **97 frames** (~8s) de **um único vídeo** (o primeiro clipe, "amanhecer sobre
+os painéis"), extraídos a 12 fps. São **2 legendas** e o filme é liberado quando o passe
+de passo 2 termina (~metade dos frames) — o restante completa em segundo plano.
 
-Para regerar o filme a partir dos clipes:
+Efeitos de impacto: **zoom cinematográfico** (leve aproximação ao longo do scroll,
+em `film.js`), **feixe de luz** varrendo as placas e **vinheta** (`film.css`).
+
+Para regerar o filme com **um vídeo só**, deixe apenas `tools/clips/scene1.mp4`:
 
 ```bash
-LEAD_IN=3 XFADE=1 FPS=12 bash tools/encode-real-film.sh
+FPS=12 bash tools/encode-real-film.sh
 ```
 
-- `LEAD_IN=3` — usa só os últimos 3s do primeiro clipe (abertura).
-- `XFADE=1` — cross-dissolve de 1s na emenda.
-- `FPS=12` — frames extraídos (padrão 12; ~200–500 frames é o ideal).
+- `FPS=12` — frames extraídos (padrão 12).
+- Se houver **dois** clipes, o script ainda aceita `LEAD_IN=3 XFADE=1` (abertura curta
+  do primeiro + cross-dissolve na emenda).
+- Sempre que um frame ainda não chegou, o canvas **mantém o quadro atual** — nunca pula
+  para um vizinho distante (era isso que fazia "surgirem várias imagens" no scroll).
 
 > Ao mudar o filme, atualize no `index.html`: `data-frame-count`, a altura
 > (`--film-height`) e as legendas (`.film-caption`, com `data-from` / `data-to`).
-> Regra prática: ~55vh de scroll por segundo de filme (12s → 700vh).
+> Regra prática: ~55vh de scroll por segundo de filme (8s → 450vh).
 
 ---
 

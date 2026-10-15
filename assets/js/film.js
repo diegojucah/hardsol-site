@@ -28,6 +28,7 @@
   var progressBar = document.querySelector(".film-progress i");
   var hint = document.querySelector(".scroll-hint");
   var beam = document.querySelector(".film-beam");
+  var vignette = document.querySelector(".film-vignette");
   var preloader = document.querySelector(".preloader");
   var preBar = preloader && preloader.querySelector(".preloader__bar i");
   var prePct = preloader && preloader.querySelector(".preloader__pct");
@@ -51,18 +52,20 @@
 
   var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
   var lastIndex = -1;
+  var lastZoom = 1;
 
   function resize() {
     canvas.width = Math.round(canvas.clientWidth * dpr);
     canvas.height = Math.round(canvas.clientHeight * dpr);
     lastIndex = -1;
+    lastZoom = 1;
   }
 
-  function draw(img) {
+  function draw(img, zoom) {
     if (!img || !img.naturalWidth) return;
     var cw = canvas.width;
     var ch = canvas.height;
-    var s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+    var s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight) * (zoom || 1);
     var w = img.naturalWidth * s;
     var h = img.naturalHeight * s;
     ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
@@ -83,14 +86,21 @@
     var scrollable = section.offsetHeight - window.innerHeight;
     var progress = clamp(-rect.top / (scrollable > 0 ? scrollable : 1), 0, 1);
 
+    // Zoom cinematográfico: leve aproximação ao longo do filme.
+    var zoom = 1 + 0.075 * smoothstep(progress);
+    var zoomMoved = Math.abs(zoom - lastZoom) > 0.0012;
+
     var index = Math.round(progress * (count - 1));
+    var img;
     if (index !== lastIndex) {
-      var img = loader.get(index);
-      if (img) {
-        draw(img);
-        lastIndex = index;
-      }
+      img = loader.get(index);
+      if (img) lastIndex = index;
       // se ainda não chegou: mantém o quadro anterior (sem "pular")
+    }
+    if (img || (zoomMoved && lastIndex >= 0)) {
+      if (!img) img = loader.get(lastIndex);
+      draw(img, zoom);
+      lastZoom = zoom;
     }
 
     if (progressBar) progressBar.style.width = (progress * 100).toFixed(2) + "%";
@@ -109,6 +119,7 @@
     var capWrap = section.querySelector(".film-captions");
     if (capWrap) capWrap.style.visibility = hidden ? "hidden" : "visible";
     if (beam) beam.style.visibility = hidden ? "hidden" : "visible";
+    if (vignette) vignette.style.visibility = hidden ? "hidden" : "visible";
     if (hint) {
       hint.classList.toggle("is-hidden", progress > 0.03 || hidden);
       hint.style.visibility = hidden ? "hidden" : "visible";

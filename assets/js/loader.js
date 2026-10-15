@@ -8,9 +8,12 @@
 (function (global) {
   "use strict";
 
-  // Passes densos: o primeiro dá um poster utilizável; o último completa.
-  var PASSES = [6, 3, 1];
-  var READY_AT = 2; // revela quando o passe PASSES[2] (passo 1) termina
+  // Passes: 8 -> 4 -> 2 -> 1. O filme é liberado quando o passo 2 termina
+  // (~metade dos frames): navegável rápido e sem buracos visíveis. O restante
+  // completa em segundo plano. Se um frame ainda não chegou, o canvas MANTÉM o
+  // quadro atual (hold) — nunca pula para um vizinho distante.
+  var PASSES = [8, 4, 2, 1];
+  var READY_AT = 2; // índice do passe de passo 2
 
   function FrameLoader(opts) {
     this.count = opts.count;
