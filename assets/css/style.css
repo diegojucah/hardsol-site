@@ -5,7 +5,7 @@
    ========================================================================== */
 
 :root {
-  /* Marca */
+  /* Marca — HardSol */
   --gold: #ffbc3b;
   --gold-600: #ffab08;
   --gold-50: #fff7e6;
@@ -15,6 +15,13 @@
   --blue-50: #eef0fb;
   --green: #74ad73;
 
+  /* Marca — HardMove */
+  --move: #22a85a;
+  --move-600: #1f7f47;
+  --move-50: #eef6f0;
+  --move-2: #1976d2;
+  --move-2-50: #eaf2fb;
+
   /* Neutros */
   --ink: #1a1a37;
   --text: #2c2c4a;
@@ -22,8 +29,9 @@
   --muted-2: #8585a4;
   --line: #e5e5ee;
   --line-2: #d6d6e0;
-  --bg: #ffffff;
-  --bg-2: #f8f8fb;
+  /* Fundo principal: nunca branco puro. Superfícies de card podem ser #fff. */
+  --bg: #fafafa;
+  --bg-2: #f4f5f7;
   --bg-3: #ededf3;
 
   /* Superfícies escuras (filme, faixa azul, rodapé) */
@@ -166,6 +174,63 @@ p {
   height: 2px;
   background: var(--gold);
   border-radius: 2px;
+}
+
+/* ------------------------ Barra do grupo (duas marcas) ------------------ */
+/* Identifica que HardSol e HardMove são duas empresas do mesmo grupo. */
+.group-bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 61;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.4rem var(--gutter);
+  background: var(--night);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+.group-bar strong {
+  color: #fff;
+  font-weight: 600;
+}
+.group-bar__brands {
+  display: flex;
+  gap: 1.25rem;
+}
+.group-bar a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.78);
+  transition: color 0.2s var(--ease);
+}
+.group-bar a span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+.group-bar a[data-brand="hardsol"] span {
+  background: var(--gold);
+}
+.group-bar a[data-brand="hardmove"] span {
+  background: var(--move);
+}
+.group-bar a:hover,
+.group-bar a[aria-current="brand"] {
+  color: #fff;
+}
+
+/* O header passa a empurrar o conteúdo para baixo da barra do grupo. */
+body.has-group-bar {
+  --header-top: 1.75rem;
+}
+.site-header.with-group-bar {
+  top: 1.75rem;
 }
 
 /* ------------------------------ Header / Nav ---------------------------- */
@@ -770,8 +835,8 @@ p {
 
 /* --------------------------- Page hero (internas) ----------------------- */
 .page-hero {
-  padding: calc(7.5rem + 3vw) 0 clamp(2.5rem, 5vw, 4rem);
-  background: var(--bg-2);
+  padding: calc(8.5rem + 3vw) 0 clamp(2.5rem, 5vw, 4rem);
+  background: var(--bg);
   border-bottom: 1px solid var(--line);
 }
 .page-hero h1 {

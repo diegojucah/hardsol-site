@@ -1,18 +1,39 @@
 {
-  "brandName": "HardSol",
-  "brandSuffix": "Sol",
-  "brandFull": "HardSol Energia Solar",
-  "whatsapp": "5592993483553",
-  "whatsappLabel": "(92) 99348-3553",
-  "whatsappE164": "+5592993483553",
-  "whatsappText": "Estou interessado nos serviços da HardSol",
-  "phone2": "+5592992672491",
-  "phone2Label": "(92) 99267-2491",
-  "phone2Note": "pós-venda",
-  "email": "",
-  "instagram": "",
-  "youtube": "https://www.youtube.com/watch?v=Xu_NYPAjhHU",
-  "city": "Manaus",
-  "state": "AM",
-  "fontsGoogle": "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+  "group": "Grupo HardSol",
+  "groupLine": "Energia Solar & Mobilidade Elétrica",
+  "companies": [
+    {
+      "id": "hardsol",
+      "name": "Hard",
+      "suffix": "Sol",
+      "full": "HardSol Energia Solar",
+      "accent": "sol",
+      "href": "index.html",
+      "claim": "Geração distribuída fotovoltaica e infraestrutura elétrica"
+    },
+    {
+      "id": "hardmove",
+      "name": "Hard",
+      "suffix": "Move",
+      "full": "HardMove Carregadores Elétricos",
+      "accent": "move",
+      "href": "hardmove.html",
+      "claim": "Infraestrutura de recarga e gestão de carregadores (wallbox)"
+    }
+  ],
+  "whatsapp": "5582996262545",
+  "whatsappLabel": "(82) 99626-2545",
+  "whatsappE164": "+5582996262545",
+  "whatsappText": "Olá! Vim pelo site e quero uma avaliação de viabilidade.",
+  "phone2": "+5582999134863",
+  "phone2Label": "(82) 99913-4863",
+  "phone2Note": "comercial",
+  "email": "sac.al@hardsol.com.br",
+  "instagram": "energiasolarhardsol",
+  "site": "www.hardsol.com.br",
+  "youtube": "",
+  "webhook": "",
+  "city": "Maceió",
+  "state": "AL",
+  "fontGoogle": "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
 }

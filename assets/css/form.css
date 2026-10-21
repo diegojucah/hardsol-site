@@ -1,0 +1,197 @@
+/* ==========================================================================
+   Formulário — controles sem estilo nativo, com máquina de estado.
+   Estados: [data-state="idle|loading|success|error"]
+   ========================================================================== */
+
+[data-form] {
+  background: var(--surface, #fff);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: clamp(1.5rem, 3.5vw, 2.4rem);
+}
+
+.fields {
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .fields {
+    grid-template-columns: 1fr 1fr;
+  }
+  .field--full {
+    grid-column: 1 / -1;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.field .hint {
+  font-size: 0.78rem;
+  color: var(--muted-2);
+  margin: -0.15rem 0 0;
+}
+
+/* --------------------------- Controles (sem nativo) --------------------- */
+[data-form] input,
+[data-form] select,
+[data-form] textarea {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  font: inherit;
+  font-size: 0.98rem;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1.5px solid var(--line-2);
+  border-radius: 12px;
+  padding: 0.95rem 1.05rem;
+  min-height: 3.1rem;
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease),
+    background 0.25s var(--ease);
+}
+[data-form] textarea {
+  min-height: 8.5rem;
+  resize: vertical;
+}
+
+/* Select com seta desenhada (não a nativa) */
+[data-form] select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 2.6rem;
+  cursor: pointer;
+}
+
+/* Foco visível e consistente em todos os controles */
+[data-form] input::placeholder,
+[data-form] select:invalid,
+[data-form] textarea::placeholder {
+  color: var(--muted-2);
+}
+[data-form] input:focus,
+[data-form] select:focus,
+[data-form] textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: #fff;
+  box-shadow: 0 0 0 4px var(--blue-50);
+}
+[data-form] input:focus-visible,
+[data-form] select:focus-visible,
+[data-form] textarea:focus-visible {
+  outline: none;
+}
+[data-form] button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* --------------------------------- Estados ------------------------------ */
+[data-form][data-state="loading"] input,
+[data-form][data-state="loading"] select,
+[data-form][data-state="loading"] textarea {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+[data-form][data-state="error"] input:invalid,
+[data-form][data-state="error"] select:invalid,
+[data-form][data-state="error"] textarea:invalid {
+  border-color: #b3261e;
+  box-shadow: 0 0 0 4px rgba(179, 38, 30, 0.1);
+}
+
+.form-feedback {
+  display: none;
+  margin-top: 1.1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+[data-form][data-state="loading"] .form-feedback {
+  display: block;
+  background: var(--blue-50);
+  color: var(--blue);
+}
+[data-form][data-state="error"] .form-feedback {
+  display: block;
+  background: rgba(179, 38, 30, 0.08);
+  color: #8c1d18;
+  border: 1px solid rgba(179, 38, 30, 0.25);
+}
+[data-form][data-state="success"] .form-feedback {
+  display: block;
+  background: rgba(34, 168, 90, 0.1);
+  color: #1c6b3a;
+  border: 1px solid rgba(34, 168, 90, 0.28);
+}
+
+/* Botão de envio com estado */
+[data-submit] {
+  position: relative;
+  min-width: 15rem;
+}
+[data-submit] [data-label] {
+  transition: opacity 0.2s var(--ease);
+}
+[data-form][data-state="loading"] [data-submit] {
+  opacity: 0.85;
+  pointer-events: none;
+}
+[data-form][data-state="loading"] [data-submit] [data-label] {
+  opacity: 0;
+}
+[data-submit] [data-spin] {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+[data-form][data-state="loading"] [data-submit] [data-spin] {
+  display: inline-flex;
+}
+[data-spin]::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+  [data-spin]::before {
+    animation-duration: 2s;
+  }
+  [data-form] input,
+  [data-form] select,
+  [data-form] textarea,
+  [data-submit] [data-label] {
+    transition: none;
+  }
+}
