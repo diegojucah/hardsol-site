@@ -11,3 +11,6 @@ tools/clips/list.txt
 !.commandcode/skills/**
 
 l2/assets/stories/
+
+# Projeto separado: L2 Construtora vive em seu próprio repositório
+l2-construtora/
