@@ -3,5 +3,9 @@ tools/flow-source/
 tools/clips/*.mp4
 tools/clips/list.txt
 .preview/
-.commandcode/
 .indexnow-key
+
+# Estado local do agente, mas o pacote de skills é versionado.
+.commandcode/*
+!.commandcode/skills/
+!.commandcode/skills/**

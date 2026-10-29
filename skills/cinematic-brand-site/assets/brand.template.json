@@ -1,0 +1,48 @@
+{
+  "slug": "empresa",
+  "group": "Empresa",
+  "groupLine": "O que ela faz, em 4 palavras",
+  "companies": [
+    {
+      "id": "principal",
+      "name": "Empresa",
+      "suffix": "",
+      "full": "Empresa Ltda",
+      "accent": "primary",
+      "href": "index.html",
+      "claim": "Frase curta com o serviço principal"
+    }
+  ],
+  "whatsapp": "5582999999999",
+  "whatsappLabel": "(82) 99999-9999",
+  "whatsappE164": "+5582999999999",
+  "whatsappText": "Olá! Vim pelo site.",
+  "phone2": "+5582999999999",
+  "phone2Label": "(82) 99999-9999",
+  "phone2Note": "comercial",
+  "email": "contato@empresa.com.br",
+  "instagram": "empresa",
+  "site": "www.empresa.com.br",
+  "youtube": "",
+  "webhook": "",
+  "city": "Maceió",
+  "state": "AL",
+  "colors": {
+    "primary": "#000000",
+    "secondary": "#000000",
+    "bg": "#FAFAFA",
+    "surface": "#FFFFFF",
+    "ink": "#1A1A37",
+    "muted": "#5C5C77"
+  },
+  "typography": {
+    "family": "Poppins",
+    "googleUrl": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+  },
+  "voice": {
+    "tone": "técnico e direto",
+    "bannedWords": ["revolucione", "desvende", "descubra", "jornada"],
+    "proofPoints": []
+  },
+  "sources": []
+}
