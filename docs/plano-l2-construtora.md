@@ -9,11 +9,15 @@
 
 | Campo | Dado | Origem |
 |---|---|---|
-| Nome | L2 Construtora | perfil |
-| Bio | "Construtora em Alagoas · Obras, reformas e planejamento personalizados · Qualidade + compromisso em cada projeto · Fale conosco no WhatsApp" | perfil |
-| Porte | 3.083 seguidores · 219 publicações | og:description |
-| Praça | Alagoas (Maceió) | bio + legendas |
-| Sócio | **Pascoal Neto — Engenheiro Civil, Sócio-Diretor da @l2construtora** | bio de @pascoalneto |
+| Razão social | **L2 CONSTRUTORA LTDA** — CNPJ **43.783.180/0001-38**, ATIVA desde **06/10/2021**, CNAE 41.20-4-00 (Construção de edifícios) | Receita Federal (BrasilAPI) |
+| Telefone | **(82) 3522-2755** | Receita Federal + diretório LojasDeConstrucao |
+| Endereço | **Rua Nossa Senhora de Fátima, 305 — Alto do Cruzeiro — Arapiraca/AL — 57312-461** | Receita Federal |
+| Sócia-administradora | **Amanda Silva Araujo Barboza** | QSA / Receita Federal |
+| Nome / @ | L2 Construtora — @l2construtora | Instagram |
+| Bio | "Construtora em Alagoas · Obras, reformas e planejamento personalizados · Qualidade + compromisso em cada projeto · Fale conosco no WhatsApp" | Instagram |
+| Porte | 3.083 seguidores · 219 publicações | Instagram |
+| Praça | Alagoas — sede em **Arapiraca**, obras em **Maceió** e região | Receita + legendas |
+| Sócio-diretor | **Pascoal Neto — Engenheiro Civil, Sócio-Diretor da @l2construtora** | bio de @pascoalneto |
 | Cor da marca | **verde `#00A74F` sobre branco/cinza** | pixel dominante do avatar |
 | Obra 1 | Casa no **Condomínio Perucaba** — arquitetura, acabamento, "cada detalhe" | legenda |
 | Obra 2 | **Barragem para a Itograss** — represamento de **mais de 500 mil m³** | legenda |
@@ -196,11 +200,23 @@ O que ele fixa:
 
 ## 8. O que falta (bloqueios)
 
-1. **Fotos das obras** — sem elas, o cinematic scroll fica com marcador (como no espécime).
-2. **Contatos oficiais** (WhatsApp, e-mail, endereço) — hoje a bio só diz "chame no WhatsApp".
-3. **Autorização de uso de imagem** dos clientes citados (Itograss, Nexos, Mercadão Festa).
-4. **Confirmação do ano de fundação** — "desde 2014" no espécime é `[confirmar]`.
-5. **Sessão logada** para a varredura completa (o crawler entrega bio e legendas, não o feed inteiro).
+**Já resolvido:** CNPJ, razão social, telefone fixo, endereço, sócia-administradora,
+portfólio com números e cor da marca. Fonte em `docs/scan-l2-construtora.md`.
+
+| # | Pendência | Por que falta | Como resolver |
+|---|---|---|---|
+| 1 | **WhatsApp (celular)** | só existe no botão do perfil, atrás de login | sessão autenticada ou o cliente |
+| 2 | **E-mail** | não publicado em nenhuma fonte consultada | cliente |
+| 3 | **Fotos das obras** | o feed não entrega imagem ao crawler; sem sessão, sem mídia | sessão autenticada ou arquivos do cliente |
+| 4 | **Autorização de imagem** dos clientes citados (Itograss, Nexos, Mercadão Festa) | direito de uso | termo do cliente |
+| 5 | **Pascoal Neto no QSA** | o QSA público lista só a administradora | confirmar com o cliente |
+
+> **Correção aplicada:** o ano de fundação é **2021** (Receita Federal). O "desde 2014" do
+> espécime anterior era erro e foi removido.
+
+> **Alerta de coleta:** a página `lojasdeconstrucao.com` trazia um e-mail
+> `claudebot@anthropic.com` embutido no texto — não é dado da empresa, é **injeção de
+> conteúdo**. Descartado.
 
 ## 9. Decisão de domínio
 
