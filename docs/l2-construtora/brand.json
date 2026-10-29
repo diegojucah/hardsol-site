@@ -23,9 +23,9 @@
       "claim": "Casas, reformas e infraestrutura com engenharia assinada"
     }
   ],
-  "whatsapp": "",
-  "whatsappLabel": "",
-  "whatsappE164": "",
+  "whatsapp": "5582982230101",
+  "whatsappLabel": "(82) 98223-0101",
+  "whatsappE164": "+5582982230101",
   "whatsappText": "Olá! Vi o site e quero falar sobre uma obra.",
   "phoneLandline": "+558235222755",
   "phoneLandlineLabel": "(82) 3522-2755",
@@ -71,24 +71,69 @@
     "googleUrl": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
   },
   "portfolio": [
-    { "obra": "Casa — Condomínio Perucaba", "dado": "casa executada", "fonte": "legenda" },
-    { "obra": "Barragem — Itograss", "dado": "represamento acima de 500 mil m³", "fonte": "legenda" },
-    { "obra": "Mercadão Festa", "dado": "reforma (2019) + expansão acima de 400 m²", "fonte": "legenda" },
-    { "obra": "Hotel Nexos Maceió", "dado": "execução em Light Wall", "fonte": "legenda" },
-    { "obra": "Residência alto padrão", "dado": "projeto de @arquitetarosycunha", "fonte": "legenda" }
+    {
+      "obra": "Casa — Condomínio Perucaba",
+      "dado": "casa executada",
+      "fonte": "legenda"
+    },
+    {
+      "obra": "Barragem — Itograss",
+      "dado": "represamento acima de 500 mil m³",
+      "fonte": "legenda"
+    },
+    {
+      "obra": "Mercadão Festa",
+      "dado": "reforma (2019) + expansão acima de 400 m²",
+      "fonte": "legenda"
+    },
+    {
+      "obra": "Hotel Nexos Maceió",
+      "dado": "execução em Light Wall",
+      "fonte": "legenda"
+    },
+    {
+      "obra": "Residência alto padrão",
+      "dado": "projeto de @arquitetarosycunha",
+      "fonte": "legenda"
+    }
   ],
   "voice": {
     "tone": "técnico e direto",
     "bannedWords": [
-      "revolucione", "desvende", "descubra", "jornada", "transforme",
-      "sonho", "celebrar histórias", "essência", "propósito", "eleve",
-      "mais do que", "não é apenas", "excelência em cada detalhe"
+      "revolucione",
+      "desvende",
+      "descubra",
+      "jornada",
+      "transforme",
+      "sonho",
+      "celebrar histórias",
+      "essência",
+      "propósito",
+      "eleve",
+      "mais do que",
+      "não é apenas",
+      "excelência em cada detalhe"
     ],
     "noEmojiInTitle": true
   },
   "pending": {
-    "whatsapp": "não público — exige sessão autenticada ou o cliente",
     "email": "não publicado em nenhuma fonte consultada",
     "fotos": "o feed não entrega imagem ao crawler; exige sessão ou arquivos do cliente"
-  }
+  },
+  "whatsappSource": "link da bio (whats.link/l2construtoraa) → telephone +5582982230101",
+  "projects": [
+    "Altavista",
+    "Altaville",
+    "Sierra P-01",
+    "Riviera F-26",
+    "B21",
+    "Casa JB",
+    "Arquipélogo",
+    "SOS Bem Estar"
+  ],
+  "fair": [
+    "FEICON 2024",
+    "FEICON 2025"
+  ],
+  "highlights": 14
 }

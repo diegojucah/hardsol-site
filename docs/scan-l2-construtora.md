@@ -60,11 +60,22 @@ Clientes/parceiros citados: @itograss_, @nexoshotelmaceio, @mercadaofesta, @arqu
 | Site próprio | **nenhum encontrado** |
 | Diretório | LojasDeConstrucao lista telefone e endereço (coincide com a Receita) |
 
+## 5b. Stories e destaques (varredura autenticada)
+
+| Item | Valor |
+|---|---|
+| WhatsApp | **(82) 98223-0101** — `+5582982230101`, do link da bio (`whats.link/l2construtoraa`) |
+| Destaques | **14**: Feicon/25, Sierra P-01, SOS Bem Estar, Casa JB, B21, Altavista, Feicon/24, Riviera F-26, Altaville, Arquipélogo, Em andamento, Obras entregues, Reformas, Contatos |
+| Projetos nomeados | Altavista · Altaville · Sierra P-01 · Riviera F-26 · B21 · Casa JB · Arquipélogo · SOS Bem Estar |
+| Feira | **FEICON 2024 e 2025** (destaques próprios) |
+| Conteúdo dos stories | 58 capturas em `l2/assets/stories/` (não versionado) |
+| Limite encontrado | destaques de ~2020 (“Obras entregues”, “Reformas”, “B21”) têm mídia expirada no próprio Instagram |
+
 ## 6. Pendências de coleta (não inventar)
 
 | Item | Por que falta | Como resolver |
 |---|---|---|
-| **WhatsApp (celular)** | só aparece no botão do perfil, atrás de login | sessão autenticada ou o próprio cliente |
+
 | **E-mail** | não publicado em nenhuma fonte | cliente |
 | **Fotos das obras** | o feed não entrega imagens ao crawler; sem sessão, sem mídia | sessão autenticada ou arquivos do cliente |
 | Nome do sócio Pascoal no QSA | o QSA público traz só a administradora | confirmar com o cliente |

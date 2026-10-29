@@ -9,3 +9,5 @@ tools/clips/list.txt
 .commandcode/*
 !.commandcode/skills/
 !.commandcode/skills/**
+
+l2/assets/stories/
