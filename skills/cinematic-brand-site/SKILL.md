@@ -189,11 +189,13 @@ Use `noindex` + faixa de "protótipo" até o aceite.
 
 - [ ] Site atual confirmado como **da mesma empresa** (ou declarado "sem site")
 - [ ] Toda afirmação tem fonte no `scan.md`
+- [ ] **Zero tell de IA**: sem "não é apenas X, é Y", sem tricolon vazio, sem emoji em CTA
 - [ ] Contraste AA e fundo não-branco-puro
-- [ ] Zero palavras da lista proibida
 - [ ] Imagens com dimensão + lazy fora do hero
 - [ ] Links internos: 0 quebrados
-- [ ] `robots.txt` + `sitemap.xml` + JSON-LD
+- [ ] Cabeçalhos de segurança aplicados (CSP sem `unsafe-inline`, HSTS, nosniff)
+- [ ] Formulário com honeypot + validação no servidor
+- [ ] `robots.txt` + `sitemap.xml` + JSON-LD + `llms.txt`
 - [ ] Domínio verificado por RDAP, com decisão registrada
 - [ ] Protótipo com `noindex` e aviso de não oficial
 
@@ -201,8 +203,10 @@ Use `noindex` + faixa de "protótipo" até o aceite.
 
 - `references/01-scan.md` — varredura de Instagram/web com sessão autenticada
 - `references/02-identity.md` — cor, tipo, forma e contraste
-- `references/03-copy.md` — copy técnico e lista de palavras proibidas
+- `references/03-copy.md` — copy técnico, tells de IA e lista proibida
 - `references/04-build.md` — arquitetura estática e motor do cinematic scroll
 - `references/05-deploy-cloudflare.md` — Cloudflare Pages, DNS e cache
 - `references/06-domain.md` — RDAP, registro e SSL
 - `references/07-business.md` — diagnóstico, oferta, preço e abordagem
+- `references/08-security.md` — CSP, cabeçalhos, formulário e DNS seguro
+- `references/09-ai-legibility.md` — `llms.txt`, semântica e leitura por agentes
